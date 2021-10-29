@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es5",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "lib": ["dom", "es7", "es6", "es5"],
+    "allowJs": true,
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src*"],
+      "@/layout*": ["src/layout*"],
+      "@/routers*": ["src/routers*"],
+      "@/pages*": ["src/pages*"],
+      "@/assets*": ["src/assets*"],
+      "@/components*": ["src/components*"],
+      "@/utils*": ["src/utils*"],
+    }
+  },
+  "exclude": ["node_modules", "dist"],
+  "include": ["src/**/*"],
+  "types": ["typePatches"]
+}

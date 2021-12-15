@@ -1,6 +1,6 @@
 .layout {
   border: 1px solid var(--semi-color-border);
-  min-height: 100vh;
+  min-height: 100vh !important;
 }
 
 .bg-color-1 {
@@ -19,7 +19,6 @@
   padding: 32px;
 }
 
-
 .breadcrumb {
   margin-bottom: 24px;
 }
@@ -32,10 +31,18 @@
 .semui-logo {
   width: 96px;
   height: 36px;
-  font-size: 36
+  font-size: 36;
 }
 
 .nav-button {
   color: var(--semi-color-text-2);
   margin-right: 12px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  color: var(--semi-color-text-2);
+  background-color: rgba(var(--semi-grey-0), 1);
 }

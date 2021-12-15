@@ -9,11 +9,22 @@ import 'reset-css'
 import "./App.css"
 
 import App from "./App"
+import routes from '@/routers/index'
+
+const routesJSX = routes.map(item => (
+  <Route path={item.path} key={item.path} element={item.component} />
+))
 
 const render = (App) => {
   ReactDOM.render((
     <AppContainer>
-      <App />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            {routesJSX}
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </AppContainer>
   ), document.getElementById("root"))
 }

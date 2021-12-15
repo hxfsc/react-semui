@@ -39,6 +39,12 @@ module.exports = {
 
   module: {
     rules: [
+      //https://github.com/gaearon/react-hot-loader/issues/1311
+      {
+        test: /\.(t|j)s$/,
+        include: /node_modules\/react-dom/,
+        use: ["react-hot-loader/webpack"]
+      },
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,

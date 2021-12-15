@@ -1,0 +1,41 @@
+.layout {
+  border: 1px solid var(--semi-color-border);
+  min-height: 100vh;
+}
+
+.bg-color-1 {
+  background-color: var(--semi-color-bg-1);
+}
+
+.content-wrapper {
+  padding: 24px;
+  background-color: var(--semi-color-bg-0);
+}
+
+.content {
+  border-radius: 10px;
+  border: 1px solid var(--semi-color-border);
+  height: 376px;
+  padding: 32px;
+}
+
+
+.breadcrumb {
+  margin-bottom: 24px;
+}
+
+.nav {
+  max-width: 220px;
+  height: 100%;
+}
+
+.semui-logo {
+  width: 96px;
+  height: 36px;
+  font-size: 36
+}
+
+.nav-button {
+  color: var(--semi-color-text-2);
+  margin-right: 12px;
+}

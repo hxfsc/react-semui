@@ -27,7 +27,7 @@ module.exports = merge(
       hot: true,
       // contentBase: "./dist",
       port: 3000,
-      // historyApiFallback: true,
+      historyApiFallback: true,
       // allowedHosts: "all",
       // overlay: {
       //   warnings: true,

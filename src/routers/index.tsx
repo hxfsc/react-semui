@@ -4,14 +4,27 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
 
 const Dashboard = React.lazy(() => import('@/pages/dashboard'))
 const Settings = React.lazy(() => import("@/pages/settings"))
-const Overview = React.lazy(() => import("@/pages/overview"))
+const Overview = React.lazy(() => import("@//pages/overview"))
 
-const routes = [{
-  path: '/dashboard',
+
+export interface routerProps {
+  path?: string
+  title: string
+  icon?: JSX.Element
+  component?: JSX.Element
+  children?: routerProps[]
+}
+
+
+const routes: routerProps[] = [{
   title: '首页',
   icon: <IconHome size={"large"} />,
-  component: <Dashboard />,
   children: [
+    {
+      title: "面板",
+      path: '/dashboard',
+      component: <Dashboard />,
+    },
     {
       title: '慨览',
       path: '/overview',

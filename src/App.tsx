@@ -1,36 +1,48 @@
 
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Layout, Nav, Button, Breadcrumb, Skeleton, Avatar } from '@douyinfe/semi-ui'
 import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, IconLive, IconSetting } from '@douyinfe/semi-icons'
 
 import { Outlet, useNavigate } from "react-router-dom"
 
-import routes from '@/routers/index'
+import routes, { routerProps } from '@/routers/index'
+
+
 
 
 export default () => {
   const { Header, Footer, Sider, Content } = Layout
   const navigate = useNavigate()
 
-  const routerToPage = (data) => {
-    navigate(data.itemKey)
+  const [selectedKeys, setSelectKeys] = useState([])
+
+
+  const routerToPage = (path: string) => {
+    navigate(path)
+  }
+
+  const createNav = (data: routerProps[]) => {
+    const jsx = data.map((item) => {
+      if (item?.children) {
+        return (
+          <Nav.Sub text={item.title} icon={item.icon} itemKey={item.title}>
+            {createNav(item.children)}
+          </Nav.Sub>
+        )
+      }
+      return (<Nav.Item text={item.title} icon={item.icon} itemKey={item.title} onClick={() => routerToPage(item.path)}></Nav.Item>)
+    }, [])
+    return jsx
   }
 
   return (
     <Layout className='layout'>
       <Sider className='bg-color-1'>
-        <Nav
-          style={{ maxWidth: 220, height: '100%' }}
-          items={routes.map(item => ({ itemKey: item.path, text: item.title, path: item.path, icon: item?.icon, items: item?.children?.map(c => c.title) }))}
-          onClick={(data) => routerToPage(data)}
-          header={{
-            logo: <img src="//lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/webcast_logo.svg" />,
-            text: '运营后台',
-          }}
-          footer={{
-            collapseButton: true,
-          }}
-        />
+        <Nav className='nav' onSelect={data => setSelectKeys(data.selectedKeys)} selectedKeys={selectedKeys}>
+          <Nav.Header logo={<img src="//lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/webcast_logo.svg" />} text={"运营后台"} />
+          {createNav(routes)}
+          <Nav.Footer collapseButton={true} />
+        </Nav>
       </Sider>
       <Layout>
         <Header style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
@@ -56,14 +68,9 @@ export default () => {
           </div>
         </Content>
         <Footer className='footer'>
-          <span
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <IconBytedanceLogo size="large" style={{ marginRight: '8px' }} />
-            <span>Copyright © 2019. </span>
+          <span className='copyright'>
+            <IconBytedanceLogo size="large" />
+            <span>Copyright © 2021. semi.design </span>
           </span>
           <span>
             <span>平台客服</span>

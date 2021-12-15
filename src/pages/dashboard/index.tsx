@@ -1,9 +1,9 @@
 import React from "react"
-
+import { Outlet } from "react-router-dom"
 
 const Dashborad = () => {
   return (
-    <div>dashboard</div>
+    <div>Dashborad</div>
   )
 }
 

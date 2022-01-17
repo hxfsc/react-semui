@@ -1,10 +1,10 @@
-import React from "react"
-import { Outlet } from "react-router-dom"
+import React, { useContext } from "react"
+
+import Intl from "@/context/Intl"
 
 const Dashborad = () => {
-  return (
-    <div>Dashborad</div>
-  )
+  const { locale } = useContext(Intl)
+  return <div>{locale['appName']}</div>
 }
 
 export default Dashborad

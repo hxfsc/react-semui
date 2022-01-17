@@ -1,5 +1,5 @@
 export default {
-  appName: "SemUI App",
+  appName: "Operate App",
   dashboard: "Dashboard",
   analysis: "Analysis"
 }

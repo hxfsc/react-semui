@@ -5,9 +5,7 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
 
 import { Outlet, useNavigate } from "react-router-dom"
 
-import routes, { routerProps } from '@/routers/index'
-
-
+import routes, { routerProps } from '@/routers/router'
 
 
 export default () => {
@@ -15,7 +13,6 @@ export default () => {
   const navigate = useNavigate()
 
   const [selectedKeys, setSelectKeys] = useState([])
-
 
   const routerToPage = (path: string) => {
     navigate(path)
@@ -25,12 +22,12 @@ export default () => {
     const jsx = data.map((item) => {
       if (item?.children) {
         return (
-          <Nav.Sub text={item.title} icon={item.icon} itemKey={item.title}>
+          <Nav.Sub text={item.title} icon={item.icon} itemKey={item.title} key={item.title}>
             {createNav(item.children)}
           </Nav.Sub>
         )
       }
-      return (<Nav.Item text={item.title} icon={item.icon} itemKey={item.title} onClick={() => routerToPage(item.path)}></Nav.Item>)
+      return (<Nav.Item text={item.title} icon={item.icon} itemKey={item.title} key={item.title} onClick={() => routerToPage(item.path)}></Nav.Item>)
     }, [])
     return jsx
   }

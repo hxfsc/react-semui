@@ -6,6 +6,8 @@ const Settings = React.lazy(() => import("@/pages/settings"))
 const Overview = React.lazy(() => import("@/pages/overview"))
 const Users = React.lazy(() => import("@/pages/users"))
 const List = React.lazy(() => import("@/pages/list"))
+const SimpleList = React.lazy(() => import("@/pages/list/simple"))
+const AdvancedList = React.lazy(() => import("@/pages/list/advanced"))
 
 export interface routerProps {
   path?: string
@@ -43,7 +45,10 @@ const routes: routerProps[] = [
     path: "list",
     title: "列表",
     icon: <IconList size={"large"} />,
-    component: <List />
+    children: [
+      { path: "/simple", title: "简单", component: <SimpleList /> },
+      { path: "/advanced", title: "高级", component: <AdvancedList /> }
+    ]
   },
   {
     path: "users",

@@ -2,9 +2,10 @@ import React, { Suspense, useState, useContext } from "react"
 import { Layout, Nav, Button, Breadcrumb, Skeleton, Avatar, Space, RadioGroup, Radio } from "@douyinfe/semi-ui"
 import { IconSemiLogo, IconBell, IconLanguage, IconBytedanceLogo, IconHome, IconHistogram, IconLive, IconSetting } from "@douyinfe/semi-icons"
 
-import { Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useNavigate, useLocation } from "react-router-dom"
 
 import routes, { routerProps } from "@/routers/router"
+import { formatMenuPath, urlToList, flatMenuKeys, menuMatchKeys } from "@/routers/index"
 
 import Intl from "@/context/Intl"
 
@@ -13,9 +14,15 @@ import locales from "./locales"
 export default () => {
   const { Header, Footer, Sider, Content } = Layout
 
-  const navigate = useNavigate()
-  const [selectedKeys, setSelectKeys] = useState([])
+  const location = useLocation()
+  const formatRouters = formatMenuPath(routes)
+  const urlList = urlToList(location.pathname)
+  const flatMenu = flatMenuKeys(formatRouters)
+  const keys = menuMatchKeys(flatMenu, urlList)
 
+  const [selectedKeys, setSelectKeys] = useState(keys)
+
+  const navigate = useNavigate()
   const routerToPage = (path: string) => {
     navigate(path)
   }
@@ -34,24 +41,23 @@ export default () => {
     const jsx = data.map((item) => {
       if (item?.children) {
         return (
-          <Nav.Sub text={item.title} icon={item.icon} itemKey={item.title} key={item.title}>
+          <Nav.Sub text={item.title} icon={item.icon} itemKey={item.path} key={item.path}>
             {createNav(item.children)}
           </Nav.Sub>
         )
       }
-      return <Nav.Item text={item.title} icon={item.icon} itemKey={item.title} key={item.title} onClick={() => routerToPage(item.path)}></Nav.Item>
+      return <Nav.Item text={item.title} icon={item.icon} itemKey={item.path} key={item.path} onClick={() => routerToPage(item.path)}></Nav.Item>
     }, [])
     return jsx
   }
-
 
   return (
     <Intl.Provider value={{ locale, setLocale: (value) => setLocale(locales[value]) }}>
       <Layout className="layout">
         <Sider className="bg-color-1">
           <Nav className="nav" onSelect={(data) => setSelectKeys(data.selectedKeys)} selectedKeys={selectedKeys}>
-            <Nav.Header logo={<img src="//lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/webcast_logo.svg" />} text={locale['appName']} />
-            {createNav(routes)}
+            <Nav.Header logo={<img src="//lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/webcast_logo.svg" />} text={locale["appName"]} />
+            {createNav(formatRouters)}
             <Nav.Footer collapseButton={true} />
           </Nav>
         </Sider>

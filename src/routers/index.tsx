@@ -1,5 +1,5 @@
 import React from "react"
-import { Route } from "react-router-dom"
+import { Navigate, Outlet, Route } from "react-router-dom"
 import { pathToRegexp } from "path-to-regexp"
 
 import routes, { routerProps } from "./router"
@@ -8,8 +8,9 @@ export const routesJSX = (data: routerProps[] = routes, parentPath = "/", parent
   data.map((item: routerProps, index: number) => {
     if (item?.children) {
       return (
-        <Route path={parentPath} key={`${parentIndex}-${index}`}>
+        <Route path={parentPath} key={`${parentIndex}-${index}`} element={<Outlet />}>
           {routesJSX(item?.children, item.path, index)}
+          <Route path="*" key={`${parentIndex}-${index}-*`} element={<Navigate to={item.redirect} replace={true} />} />
         </Route>
       )
     }
@@ -19,7 +20,6 @@ export const routesJSX = (data: routerProps[] = routes, parentPath = "/", parent
 
 export const formatMenuPath = (data: routerProps[] = [], path = "/"): routerProps[] => {
   return data.map((item: routerProps) => {
-
     const currentPath = `${path}${item.path}`
     const result = {
       ...item,

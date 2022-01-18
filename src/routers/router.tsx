@@ -13,6 +13,7 @@ export interface routerProps {
   path?: string
   title: string
   icon?: JSX.Element
+  redirect?: string
   component?: JSX.Element
   children?: routerProps[]
 }
@@ -22,6 +23,7 @@ const routes: routerProps[] = [
     title: "首页",
     icon: <IconHome size={"large"} />,
     path: "home",
+    redirect:'home/dashboard',
     children: [
       {
         title: "面板",

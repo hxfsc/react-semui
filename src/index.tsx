@@ -1,11 +1,10 @@
 import React from "react"
 import * as ReactDOM from "react-dom"
 
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 
 import { routesJSX } from "@/routers/index"
 import { AppContainer } from "react-hot-loader"
-
 
 import "reset-css"
 import "./App.css"
@@ -13,7 +12,6 @@ import "./App.css"
 import App from "./App"
 
 const render = (App) => {
-
   ReactDOM.render(
     <AppContainer>
       <BrowserRouter>
@@ -28,12 +26,10 @@ const render = (App) => {
   )
 }
 
-
-
 render(App)
 
 if ((module as any).hot) {
-  ; (module as any).hot.accept("./App", () => {
+  ;(module as any).hot.accept("./App", () => {
     const HotApp = require("./App").default
     render(HotApp)
   })

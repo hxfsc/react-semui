@@ -1,6 +1,8 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Table, Avatar, Descriptions, Tag } from "@douyinfe/semi-ui"
 import { IconMore } from "@douyinfe/semi-icons"
+
+import { request } from "@//utils/request"
 
 const columns = [
   {
@@ -102,6 +104,11 @@ const expandData = {
 }
 
 export default () => {
+
+  useEffect(() => {
+    request({ url: "/advanced/table" }).then((res) => console.log(res))
+  }, [])
+
   const expandRowRender = (record, index) => {
     return <Descriptions align="justify" data={expandData[index]} />
   }
@@ -131,6 +138,7 @@ export default () => {
       rowExpandable={(record) => record.name !== "设计文档"}
       hideExpandedColumn={false}
       rowSelection={rowSelection}
+      size={"small"}
       pagination={false}
     />
   )

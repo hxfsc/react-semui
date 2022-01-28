@@ -9,6 +9,8 @@ import { AppContainer } from "react-hot-loader"
 import "reset-css"
 import "./App.css"
 
+import "./mock/index"
+
 import App from "./App"
 
 const render = (App) => {

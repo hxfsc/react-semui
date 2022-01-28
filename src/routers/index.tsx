@@ -27,7 +27,7 @@ export const formatMenuPath = (data: routerProps[] = [], path = "/"): routerProp
     }
 
     if (item?.children) {
-      result.children = formatMenuPath(item.children, `${currentPath}`) as routerProps[]
+      result.children = formatMenuPath(item.children, currentPath) as routerProps[]
     }
     return result
   })
@@ -59,4 +59,21 @@ export const menuMatchKeys = (flatMenus: string[], paths: string[]) => {
     return [...prev, ...matchMenu]
   }, [])
   return menuKeys
+}
+
+const flatRouters = (routers) => {
+  return routers.reduce((prev, next) => {
+    if (next.children && Array.isArray(next.children)) {
+      return [...prev, next, ...flatRouters(next.children)]
+    }
+    return [...prev, next]
+  }, [])
+}
+
+export const menuMatchName = (routers, paths) => {
+  const flatFormatRouters = flatRouters(routers)
+  return paths.map((item) => {
+    const current = flatFormatRouters.find((route) => route.path === item)
+    return current?.title ?? ""
+  })
 }

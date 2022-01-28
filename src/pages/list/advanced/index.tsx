@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { Table, Avatar, Descriptions, Tag } from "@douyinfe/semi-ui"
+import { Table, Avatar, Descriptions, Tag, Form, Space, Button, Row, Col } from "@douyinfe/semi-ui"
 import { IconMore } from "@douyinfe/semi-icons"
 
 import { request } from "@//utils/request"
@@ -104,7 +104,6 @@ const expandData = {
 }
 
 export default () => {
-
   useEffect(() => {
     request({ url: "/advanced/table" }).then((res) => console.log(res))
   }, [])
@@ -130,16 +129,61 @@ export default () => {
   }
 
   return (
-    <Table
-      rowKey="name"
-      columns={columns}
-      dataSource={data}
-      expandedRowRender={expandRowRender}
-      rowExpandable={(record) => record.name !== "设计文档"}
-      hideExpandedColumn={false}
-      rowSelection={rowSelection}
-      size={"small"}
-      pagination={false}
-    />
+    <div>
+      <div className="search-box">
+        <Form labelPosition="inset" layout="horizontal" style={{ width: "100%" }}>
+          <Row gutter={15} style={{ width: "100%" }}>
+            <Col span={4}>
+              <Form.Input field="name" label="姓名" trigger="blur" placeholder="请输入姓名" fieldStyle={{ paddingRight: 0, marginRight: 0 }} />
+            </Col>
+            <Col span={4}>
+              <Form.Input field="title" label="名称" trigger="blur" placeholder="请输入姓名" fieldStyle={{ paddingRight: 0, marginRight: 0 }} />
+            </Col>
+
+            <Col span={4}>
+              <Form.Input field="size" label="大小" trigger="blur" placeholder="请输入姓名" fieldStyle={{ paddingRight: 0, marginRight: 0 }} />
+            </Col>
+            <Col span={4}>
+              <Form.Input field="owner" label="所有者" trigger="blur" placeholder="请输入姓名" fieldStyle={{ paddingRight: 0, marginRight: 0 }} />
+            </Col>
+
+            <Col span={4}>
+              <Form.Select field="role" label="角色" style={{ width: "100%" }} fieldStyle={{ paddingRight: 0, marginRight: 0 }}>
+                <Form.Select.Option value="operate">运营</Form.Select.Option>
+                <Form.Select.Option value="rd">开发</Form.Select.Option>
+                <Form.Select.Option value="pm">产品</Form.Select.Option>
+                <Form.Select.Option value="ued">设计</Form.Select.Option>
+              </Form.Select>
+            </Col>
+
+            <Col span={4}>
+              <Form.DatePicker field="date" label="更新日期" fieldStyle={{ paddingRight: 0, marginRight: 0 }} style={{ paddingRight: 0, marginRight:'-15px' }}></Form.DatePicker>
+            </Col>
+          </Row>
+        </Form>
+
+        <Space style={{ marginTop: "20px", display: "flex", justifyContent: "flex-end" }}>
+          <Button type="primary" theme="solid">
+            搜索
+          </Button>
+          <Button type="tertiary" theme="solid">
+            重置
+          </Button>
+        </Space>
+      </div>
+      <div className="content">
+        <Table
+          rowKey="name"
+          columns={columns}
+          dataSource={data}
+          expandedRowRender={expandRowRender}
+          rowExpandable={(record) => record.name !== "设计文档"}
+          hideExpandedColumn={false}
+          rowSelection={rowSelection}
+          size={"small"}
+          pagination={false}
+        />
+      </div>
+    </div>
   )
 }

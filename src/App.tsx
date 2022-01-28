@@ -1,5 +1,5 @@
 import React, { Suspense, useState, useContext } from "react"
-import { Layout, Nav, Button, Breadcrumb, Skeleton, Avatar, Space, RadioGroup, Radio, ConfigProvider } from "@douyinfe/semi-ui"
+import { Layout, Nav, Button, Breadcrumb, Skeleton, Avatar, Space, RadioGroup, Radio, ConfigProvider, Dropdown } from "@douyinfe/semi-ui"
 import { IconSemiLogo, IconBell, IconLanguage, IconBytedanceLogo, IconHome, IconHistogram, IconLive, IconSetting } from "@douyinfe/semi-icons"
 
 import { Outlet, useNavigate, useLocation } from "react-router-dom"
@@ -78,29 +78,36 @@ export default () => {
                       </RadioGroup>
                     </Space>
                     <Button theme="borderless" icon={<IconBell size="large" />} className="nav-button" />
-                    <Avatar color="orange" size="small">
-                      YJ
-                    </Avatar>
+
+                    <Dropdown
+                      trigger={"click"}
+                      position={"bottomLeft"}
+                      render={
+                        <Dropdown.Menu>
+                          <Dropdown.Item>个人中心</Dropdown.Item>
+                          <Dropdown.Item>设置密码</Dropdown.Item>
+                          <Dropdown.Item>退出</Dropdown.Item>
+                        </Dropdown.Menu>
+                      }
+                    >
+                      <Avatar color="orange" size="small">
+                        hxfsc
+                      </Avatar>
+                    </Dropdown>
                   </>
                 }
               ></Nav>
             </Header>
             <Content className="content-wrapper">
               <Breadcrumb className="breadcrumb" routes={breadcrumbs} />
-              <div className="content">
-                <Suspense fallback={<div>Loading....</div>}>
-                  <Outlet />
-                </Suspense>
-              </div>
+              <Suspense fallback={<div>Loading....</div>}>
+                <Outlet />
+              </Suspense>
             </Content>
             <Footer className="footer">
               <span className="copyright">
                 <IconBytedanceLogo size="large" />
                 <span>Copyright © 2021. semi.design </span>
-              </span>
-              <span>
-                <span>平台客服</span>
-                <span>反馈建议</span>
               </span>
             </Footer>
           </Layout>

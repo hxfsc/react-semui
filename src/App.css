@@ -9,18 +9,11 @@
 
 .content-wrapper {
   padding: 24px;
-  background-color: var(--semi-color-bg-0);
-}
-
-.content {
-  border-radius: 10px;
-  border: 1px solid var(--semi-color-border);
-  min-height: 500px;
-  padding: 32px;
+  background-color: rgba(var(--semi-grey-0), 1);
 }
 
 .breadcrumb {
-  margin-bottom: 24px;
+  margin-bottom: 15px;
 }
 
 .nav {
@@ -56,4 +49,32 @@
 
 .copyright > span {
   margin-left: 8px;
+}
+
+.search-box {
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--semi-color-border);
+  border-radius: 3px;
+  background: #fff;
+}
+
+.content {
+  border-radius: 10px;
+  border: 1px solid var(--semi-color-border);
+  border-radius: 3px;
+  background: #fff;
+  min-height: 500px;
+  padding: 32px;
+}
+
+.semi-form-horizontal {
+  display: flex;
+  grid-row-gap: 15px;
+}
+
+
+.no-padding-field{
+  padding-right: 0;
+  margin-right: 0;
 }

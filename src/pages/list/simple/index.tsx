@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react"
-import { Table, Avatar } from "@douyinfe/semi-ui"
+import { Table, Avatar, Form, Button, Space } from "@douyinfe/semi-ui"
 
 import { request, ResponseProps } from "@/utils/request"
 
@@ -60,5 +60,33 @@ export default () => {
 
   const pagination = useMemo(() => ({ pageSize: 10 }), [])
 
-  return <Table columns={columns} dataSource={tableData} pagination={pagination} size={"small"} />
+  return (
+    <div>
+      <div className="search-box">
+        <Form labelPosition="inset" layout="horizontal">
+          <Form.Input field="name" label="姓名" trigger="blur" style={{ width: 250 }} placeholder="请输入姓名" initValue="semi" />
+          <Form.Select field="role" label="角色" style={{ width: "250px" }} initValue="rd">
+            <Form.Select.Option value="operate">运营</Form.Select.Option>
+            <Form.Select.Option value="rd">开发</Form.Select.Option>
+            <Form.Select.Option value="pm">产品</Form.Select.Option>
+            <Form.Select.Option value="ued">设计</Form.Select.Option>
+          </Form.Select>
+          <Form.DatePicker field="date" label="开始日期" style={{ width: "250px" }} initValue={new Date()}></Form.DatePicker>
+
+          <Space>
+            <Button type="primary" theme="solid">
+              搜索
+            </Button>
+            <Button type="tertiary" theme="solid">
+              重置
+            </Button>
+          </Space>
+        </Form>
+      </div>
+
+      <div className="content">
+        <Table columns={columns} dataSource={tableData} pagination={pagination} size={"small"} />
+      </div>
+    </div>
+  )
 }

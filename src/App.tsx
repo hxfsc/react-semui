@@ -1,11 +1,11 @@
-import React, { Suspense, useState, useContext } from "react"
+import React, { Suspense, useState, useContext, useEffect } from "react"
 import { Layout, Nav, Button, Breadcrumb, Skeleton, Avatar, Space, RadioGroup, Radio, ConfigProvider, Dropdown } from "@douyinfe/semi-ui"
 import { IconSemiLogo, IconBell, IconLanguage, IconBytedanceLogo, IconHome, IconHistogram, IconLive, IconSetting } from "@douyinfe/semi-icons"
 
 import { Outlet, useNavigate, useLocation } from "react-router-dom"
 
 import routes, { routerProps } from "@/routers/router"
-import { formatMenuPath, urlToList, flatMenuKeys, menuMatchKeys, menuMatchName } from "@/routers/index"
+import { formatMenuPath, getMenuKeyBreadcrumb } from "@/routers/index"
 
 import Intl from "@/context/Intl"
 
@@ -15,15 +15,20 @@ export default () => {
   const { Header, Footer, Sider, Content } = Layout
 
   const location = useLocation()
+
   const formatRouters = formatMenuPath(routes)
-  const urlList = urlToList(location.pathname)
-  const flatMenu = flatMenuKeys(formatRouters)
 
-  const keys = menuMatchKeys(flatMenu, urlList)
-
-  const breadcrumbs = menuMatchName(formatRouters, keys)
+  const { keys, breadcrumbs } = getMenuKeyBreadcrumb(location, routes)
 
   const [selectedKeys, setSelectKeys] = useState(keys)
+
+  const [openKeys, setOpenKeys] = useState(keys)
+
+  useEffect(() => {
+    const { keys } = getMenuKeyBreadcrumb(location, routes)
+    setSelectKeys(keys)
+    setOpenKeys(keys)
+  }, [location.pathname])
 
   const navigate = useNavigate()
   const routerToPage = (path: string) => {
@@ -54,12 +59,25 @@ export default () => {
     return jsx
   }
 
+  const handleClickNav = (params) => {
+    const { openKeys } = params
+    setOpenKeys(openKeys)
+  }
+
+  const collapseChange = (isCollapse) => {
+    if (isCollapse) {
+      return
+    }
+    const { keys } = getMenuKeyBreadcrumb(location, routes)
+    setOpenKeys(keys)
+  }
+
   return (
     <Intl.Provider value={{ locale, setLocale: (value) => setLocale(locales[value]) }}>
       <ConfigProvider>
         <Layout className="layout">
           <Sider className="bg-color-1">
-            <Nav className="nav" onSelect={(data) => setSelectKeys(data.selectedKeys)} selectedKeys={selectedKeys}>
+            <Nav className="nav" selectedKeys={selectedKeys} openKeys={openKeys} onClick={(parmas) => handleClickNav(parmas)} onCollapseChange={(isCollapse) => collapseChange(isCollapse)}>
               <Nav.Header logo={<img src="//lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/webcast_logo.svg" />} text={locale["appName"]} />
               {createNav(formatRouters)}
               <Nav.Footer collapseButton={true} />
@@ -72,7 +90,7 @@ export default () => {
                 footer={
                   <>
                     <Space vertical spacing="loose" align="start">
-                      <RadioGroup type="button" buttonSize="middle" defaultValue={1} aria-label="单选组合示例" onChange={(value) => changeIntl(value.target.value)}>
+                      <RadioGroup type="button" buttonSize="middle" defaultValue={1} onChange={(value) => changeIntl(value.target.value)}>
                         <Radio value={1}>中文</Radio>
                         <Radio value={2}>EN</Radio>
                       </RadioGroup>
@@ -84,8 +102,8 @@ export default () => {
                       position={"bottomLeft"}
                       render={
                         <Dropdown.Menu>
-                          <Dropdown.Item>个人中心</Dropdown.Item>
-                          <Dropdown.Item>设置密码</Dropdown.Item>
+                          <Dropdown.Item onClick={() => navigate("/users")}>个人中心</Dropdown.Item>
+                          <Dropdown.Item onClick={() => navigate("/settings")}>设置密码</Dropdown.Item>
                           <Dropdown.Item>退出</Dropdown.Item>
                         </Dropdown.Menu>
                       }

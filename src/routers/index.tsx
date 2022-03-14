@@ -77,3 +77,24 @@ export const menuMatchName = (routers, paths) => {
     return current?.title ?? ""
   })
 }
+
+export const changeOpenKeys = (routes: routerProps[] = [], path: string = "") => {
+  const current = routes.find((item) => item.path.includes(path))
+  console.log(current)
+  if (current && current.children && current.children[0]) {
+    return [path, current?.children[0].path]
+  }
+  return null
+}
+
+export const getMenuKeyBreadcrumb = (location, routes) => {
+  const formatRouters = formatMenuPath(routes)
+  const urlList = urlToList(location.pathname)
+  const flatMenu = flatMenuKeys(formatRouters)
+
+  const keys = menuMatchKeys(flatMenu, urlList)
+
+  const breadcrumbs = menuMatchName(formatRouters, keys)
+
+  return { keys, breadcrumbs }
+}

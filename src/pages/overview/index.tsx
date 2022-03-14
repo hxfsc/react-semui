@@ -1,9 +1,11 @@
 import React from "react"
 
 
+import styles from "./index.scss"
+
 const Overview = () => {
   return (
-    <div>Overview</div>
+    <div className={styles["overview"]}>Overview</div>
   )
 }
 

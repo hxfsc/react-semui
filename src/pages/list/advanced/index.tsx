@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { Table, Avatar, Descriptions, Tag, Form, Space, Button, Row, Col } from "@douyinfe/semi-ui"
 import { IconMore } from "@douyinfe/semi-icons"
 
-import { request } from "@//utils/request"
+import { request } from "@/utils/request"
 
 const columns = [
   {

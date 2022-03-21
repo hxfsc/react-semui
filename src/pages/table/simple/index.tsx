@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react"
 import { Table, Avatar, Form, Button, Space } from "@douyinfe/semi-ui"
 
-import { request, ResponseProps } from "@/utils/request"
+import { request } from "@/utils/request"
 
 const columns = [
   {

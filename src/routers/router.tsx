@@ -5,9 +5,13 @@ const Dashboard = React.lazy(() => import("@/pages/dashboard"))
 const Settings = React.lazy(() => import("@/pages/settings"))
 const Overview = React.lazy(() => import("@/pages/overview"))
 const Users = React.lazy(() => import("@/pages/users"))
-const List = React.lazy(() => import("@/pages/list"))
-const SimpleList = React.lazy(() => import("@/pages/list/simple"))
-const AdvancedList = React.lazy(() => import("@/pages/list/advanced"))
+const List = React.lazy(() => import("@/pages/table"))
+const SimpleList = React.lazy(() => import("@/pages/table/simple"))
+const AdvancedList = React.lazy(() => import("@/pages/table/advanced"))
+
+const FormBasic = React.lazy(() => import("@/pages/form/basic"))
+const FormStep = React.lazy(() => import("@/pages/form/step"))
+const FormAdvanced = React.lazy(() => import("@/pages/form/advanced"))
 
 export interface routerProps {
   path?: string
@@ -23,7 +27,7 @@ const routes: routerProps[] = [
     title: "首页",
     icon: <IconHome size={"large"} />,
     path: "home",
-    redirect:'home/dashboard',
+    redirect: "home/dashboard",
     children: [
       {
         title: "面板",
@@ -41,11 +45,15 @@ const routes: routerProps[] = [
     path: "form",
     title: "表单",
     icon: <IconHistogram size={"large"} />,
-    component: <Settings />
+    children: [
+      { path: "/basic", title: "基础", component: <FormBasic /> },
+      { path: "/step", title: "分步", component: <FormStep /> },
+      { path: "/advanced", title: "高级", component: <FormAdvanced /> }
+    ]
   },
   {
-    path: "list",
-    title: "列表",
+    path: "table",
+    title: "表格",
     icon: <IconList size={"large"} />,
     children: [
       { path: "/simple", title: "简单", component: <SimpleList /> },

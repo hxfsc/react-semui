@@ -15,32 +15,32 @@ const UserProfile = () => {
       <div className={styles["user-form"]}>
         <Title heading={5}>基本设置</Title>
         <Form>
-          <Form.Input label="邮箱" />
-          <Form.Input label="呢称" />
-          <Form.TextArea label="个人简介" />
-          <Form.Select label="国家" style={{ width: 180 }}>
+          <Form.Input label="邮箱" field="" />
+          <Form.Input label="呢称" field="" />
+          <Form.TextArea label="个人简介" field="" />
+          <Form.Select label="国家" style={{ width: 180 }} field="">
             <Form.Select.Option>中国</Form.Select.Option>
           </Form.Select>
 
           <div className={styles["counties-wrapper"]}>
             <Text strong>所在省市</Text>
             <div className={styles["counties"]}>
-              <Form.Select style={{ width: 180 }}>
+              <Form.Select style={{ width: 180 }} field="">
                 <Form.Select.Option>中国</Form.Select.Option>
               </Form.Select>
-              <Form.Select style={{ width: 180 }}>
+              <Form.Select style={{ width: 180 }} field="">
                 <Form.Select.Option>中国</Form.Select.Option>
               </Form.Select>
             </div>
           </div>
 
-          <Form.Input label="街道地址" />
+          <Form.Input label="街道地址" field="" />
 
           <div className={styles["counties-wrapper"]}>
             <Text strong>联系电话</Text>
             <div className={styles["counties"]}>
-              <Form.Input style={{ width: 100 }} />
-              <Form.Input style={{ width: 200 }} />
+              <Form.Input style={{ width: 100 }} field="" />
+              <Form.Input style={{ width: 200 }} field="" />
             </div>
           </div>
 

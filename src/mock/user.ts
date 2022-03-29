@@ -19,3 +19,17 @@ Mock.mock(`doc/list`, "get", () => {
   }))
   return initRes(citys)
 })
+
+
+Mock.mock(`user/member`, "get", () => {
+  const citys = Array.from({ length: 5 }).map((item) => ({
+    id: Mock.mock("@id"),
+    name: Mock.Random.cname(),
+    no: Mock.Random.id(),
+    orz: Mock.Random.ctitle(5)
+  }))
+  return initRes(citys)
+})
+
+
+
